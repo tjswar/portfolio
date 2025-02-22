@@ -48,18 +48,29 @@ export function GalaxianBackground() {
     const initializeGame = () => {
       playerRef.current = {
         x: canvas.width / 2,
-        y: canvas.height - 100,
+        y: canvas.height - 30,
         lastShot: 0
       }
 
-      enemiesRef.current = []
       bulletsRef.current = []
       
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 10; col++) {
+      enemiesRef.current = []
+      const rows = 3
+      const enemiesPerRow = 8
+      const startY = 30
+      const spacing = {
+        x: 40,
+        y: 30
+      }
+      
+      const formationWidth = (enemiesPerRow - 1) * spacing.x
+      const startX = (canvas.width - formationWidth) / 2
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < enemiesPerRow; col++) {
           enemiesRef.current.push({
-            x: (col * 30) + (canvas.width - 300) / 2,
-            y: row * 30 + 100,
+            x: startX + (col * spacing.x),
+            y: startY + (row * spacing.y),
             direction: 1,
             row: row
           })
@@ -116,23 +127,22 @@ export function GalaxianBackground() {
 
     const playerShoot = () => {
       const now = Date.now()
-      if (now - playerRef.current.lastShot > 500) { // Shoot every 500ms
+      if (now - playerRef.current.lastShot > 500) {
         bulletsRef.current.push({
           x: playerRef.current.x,
-          y: playerRef.current.y - 10,
-          speed: -5
+          y: playerRef.current.y - 15,
+          speed: -4
         })
         playerRef.current.lastShot = now
       }
     }
 
     const enemyShoot = () => {
-      // Random enemy shoots
-      if (Math.random() < 0.02 && enemiesRef.current.length > 0) {
+      if (Math.random() < 0.01 && enemiesRef.current.length > 0) {
         const shooter = enemiesRef.current[Math.floor(Math.random() * enemiesRef.current.length)]
         bulletsRef.current.push({
           x: shooter.x,
-          y: shooter.y + 10,
+          y: shooter.y + 15,
           speed: 3,
           isEnemy: true
         })

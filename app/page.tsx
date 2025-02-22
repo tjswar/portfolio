@@ -26,16 +26,6 @@ type Certification = {
   link: string
 }
 
-// Color constants
-const colors = {
-  primary: "#7B61FF",      // Deep Purple
-  secondary: "#00E6E6",    // Turquoise
-  accent: "#FF61DC",       // Pink
-  background: "#0F1117",   // Dark Blue-Black
-  muted: "#1F2937",        // Slate
-  text: "#F3F4F6",         // Light Gray
-}
-
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home")
   const [isResumeOpen, setIsResumeOpen] = useState(false)
@@ -470,7 +460,6 @@ Message: ${formData.message}`
           id="home"
           className="relative min-h-screen flex flex-col justify-center items-center text-center p-4 overflow-hidden"
         >
-          <GalaxianBackground />
           <div className="absolute inset-0">
             <ParticlesBackground />
           </div>
